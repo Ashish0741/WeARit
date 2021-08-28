@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/051cf0ddf5.js" crossorigin="anonymous"></script>
+  <title>{% block title %} {% endblock %}</title>
+
+  {% block css %} {% endblock %}
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">WeARit</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="padding-left: 400px;">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/"><i class="fas fa-home"></i></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Mens
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Shirt</a></li>
+              <li><a class="dropdown-item" href="#">T-shirt</a></li>
+              <li><a class="dropdown-item" href="#">Jeans</a></li>
+              <li><a class="dropdown-item" href="#">Specs</a></li>
+              <li><a class="dropdown-item" href="#">Shoes</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Womens
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Top</a></li>
+              <li><a class="dropdown-item" href="#">Kurti</a></li>
+              <li><a class="dropdown-item" href="#">Jeans</a></li>
+              <li><a class="dropdown-item" href="#">Specs</a></li>
+              <li><a class="dropdown-item" href="#">Shoes</a></li>
+              <li><a class="dropdown-item" href="#">Earings</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Kids
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Shirt</a></li>
+              <li><a class="dropdown-item" href="#">T-shirt</a></li>
+              <li><a class="dropdown-item" href="#">Jeans</a></li>
+              <li><a class="dropdown-item" href="#">Specs</a></li>
+              <li><a class="dropdown-item" href="#">Shoes</a></li>
+              <li><a class="dropdown-item" href="#">Earings</a></li>
+            </ul>
+          </li>
+          <!-- <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/ecom/about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/ecom/contact">Contact Us</a>
+                    </li> -->
+        </ul>
+        <form method="get" action="/ecom/search1/" class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search1" id="search1">
+          <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
+        </form>
+        <div class="btn-group" role="group" aria-label="Basic outlined example">
+          <button type="button" class="btn btn-outline-primary mx-2" data-bs-toggle="modal"
+            data-bs-target="#exampleModal"><i class="fas fa-user-plus"></i> SignUp</button>
+        </div>
+        <div class="dropdown">
+          <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-sign-in-alt"></i> Login
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal2" href="#">User</a></li>
+            <li><a class="dropdown-item" href="http://127.0.0.1:8000/admin/login/?next=/admin/">Admin</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Modal SignUp -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header d-flex justify-content-center">
+          <h5 class="modal-title text-center" id="exampleModalLabel" style="font-size: 25px;font-weight: bolder;">Sign Up
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/ecom/signup/" method="post">
+            <div class="mb-3"> {% csrf_token %}
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" name="username" id="username"
+                placeholder="Choose a unique username(lowercase and alphanumeric)" required>
+            </div>
+            <div class="mb-3">
+              <label for="fname" class="form-label">Firstname</label>
+              <input type="text" class="form-control" name="fname" id="fname" placeholder="Enter your firstname"
+                required>
+            </div>
+            <div class="mb-3">
+              <label for="lname" class="form-label">Lastname</label>
+              <input type="text" class="form-control" name="lname" id="lname" placeholder="Enter your lastname"
+                required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email Id</label>
+              <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email id"
+                required>
+            </div>
+            <div class="mb-3">
+              <label for="pass1" class="form-label">Password</label>
+              <input type="password" class="form-control" name="pass1" id="pass1" placeholder="Enter password" required>
+            </div>
+            <div class="mb-3">
+              <label for="pass2" class="form-label">Confirm Password</label>
+              <input type="password" class="form-control" name="pass2" id="pass2" placeholder="Confirm password"
+                required>
+            </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button type="submit" class="btn btn-outline-primary">Submit</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Login -->
+  <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header d-flex justify-content-center">
+          <h5 class="modal-title text-center" id="exampleModalLabel" style="font-size: 25px;font-weight: bolder;">Login
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/ecom/login/" method="post">
+            <div class="mb-3"> {% csrf_token %}
+              <label for="loginusername" class="form-label">Username</label>
+              <input type="text" class="form-control" name="loginusername" id="loginusername"
+                placeholder="Enter your username" required>
+            </div>
+            <div class="mb-3">
+              <label for="loginpassword" class="form-label">Password</label>
+              <input type="password" class="form-control" name="loginpassword" id="loginpassword" placeholder="Enter a password"
+                required>
+            </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button type="submit" class="btn btn-outline-primary">Submit</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+
+
+  {% block body %} {% endblock %}
+  {% block js %} {% endblock %}
+  <!-- FOOTER -->
+  <footer class="container-fluid bg-dark my-0 py-3 text-light">
+    <p class="mb-0 text-center">&copy; 2021-2022 WeARit.com</p>
+    <p class="mb-0 text-center">
+      <a href="#" class="text-light text-decoration-none">Back to top |</a>
+      <a href="/ecom/about" class="text-light text-decoration-none">About Us |</a>
+      <a href="/ecom/contact" class="text-light text-decoration-none">Contact Us</a>
+    </p>
+  </footer>
+  <!-- Optional JavaScript; choose one of the two! -->
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
+
+  <!-- Option 2: Separate Popper and Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+  <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
+    integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG"
+    crossorigin="anonymous"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
+        integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
+        crossorigin="anonymous"></script> -->
+ 
+</body>
+
+</html>

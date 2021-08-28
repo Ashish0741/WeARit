@@ -1,0 +1,69 @@
+{% extends 'basic.html' %}
+{% block title %} {{product.product_name}} | Product View {% endblock %}
+{% load cart %}
+{% block body %}
+<h1 style="margin-left: 20px;padding-bottom: 20px;padding-top: 10px;">Product Details</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-5 col-lg-6 col-xl-6 text-center">
+      <div class="row">
+        <img src="/media/{{product.image}}" class="card-img-top border rounded" width="400px" height="550px" alt="...">
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-xl-6">
+      <h1 class="text-truncate" style="font-size: 40px;">{{product.product_name}}<br>
+      </h1>
+      <p style="font-size: 26px;">Price: <i class="fa fa-rupee"></i> {{product.price}}&nbsp;</p>
+      <p>{{product.desc}}</p>
+      <div class="row g-2">
+      {% if product|is_in_cart:request.session.cart %}
+      <input type="submit" class="btn btn-success col-4 me-5" disabled value="Added to Cart">
+      {% else %}
+      <form action="/ecom/addtocart/#{{product.id}}" method="post" class="col-6">
+        {% csrf_token%}
+        <input hidden type="text" id="product" name="product" value="{{product.id}}">
+        <input type="submit" class="btn btn-primary btn-block" value="Buy"
+          style="padding-left: 85px;padding-right:90px;">
+      </form>
+      {% endif %}
+      <a href="#" class="col-6 float-start"><button id="qv{{i.id}}" class="btn btn-primary" style="padding-right: 65px;padding-left: 65px;">AR
+          View</button></a>
+          </div>
+    </div>
+  </div>
+</div>
+<h1 style="margin-left: 20px;padding-top: 30px;">Similar Products</h1>
+<div class="container-fluid mr-1 me-1 my-3">
+  <div class="row">
+    {% for i in related %}
+    <div class="col-xs-3 col-sm-1 col-md-3">
+      <div class="card" style="width: 310px;">
+        <a href="/ecom/productview/{{i.id}}/{{i.category}}"><img src="/media/{{i.image}}" class="card-img-top" alt="..."
+            style="height: 300px;"></a>
+        <div class="card-body">
+          <h5 class="card-title" id="namepr{{i.id}}" style="margin-left: 10px;">{{i.product_name}}</h5>
+          <p class="card-text" style="margin-left: 10px;">Price: <i class="fas fa-rupee-sign"></i> {{i.price}}</p>
+          {% if i|is_in_cart:request.session.cart %}
+          <input type="submit" class="btn btn-success btn-block" disabled value="Added to Cart"
+            style="margin-left: 10px;margin-right: 10px;padding-left: 75px;padding-right:83px;">
+          {% else %}
+          <form action="/ecom/addtocart/#{{i.id}}" method="post">
+            {% csrf_token%}
+            <input hidden type="text" id="product" name="product" value="{{i.id}}">
+            <input type="submit" class="btn btn-primary btn-block" value="Add to Cart"
+              style="margin-left: 10px;margin-right: 10px;padding-left: 85px;padding-right:90px;">
+          </form>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <!-- if last column in row -->
+    {% if forloop.counter|divisibleby:"4" and not forloop.last %}
+  </div><br>
+  <div class="row">
+    {% endif %}
+
+    {% endfor %}
+  </div>
+</div>
+{% endblock%}
