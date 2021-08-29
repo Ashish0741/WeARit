@@ -11,7 +11,59 @@
     integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
   <script src="https://kit.fontawesome.com/051cf0ddf5.js" crossorigin="anonymous"></script>
   <title>{% block title %} {% endblock %}</title>
-
+  <style>
+    @media only screen and (max-width: 600px) {
+    .title {
+      margin-left: 10px;
+    }
+    .navbar-brand{
+      font-size: x-large;
+      font-weight: bold;
+    }
+    .navbar-nav{
+      margin: 0px;
+      padding-left: 0px!important;
+    }
+    .home{
+      display: none;
+    }
+    .nav-link{
+      font-size: large;
+      font-weight: 500;
+    }
+    .card{
+      margin: auto;
+      margin-bottom: 10px;
+    }
+    .navbar-toggler{
+      margin-right: 5px;
+      padding: 8px;
+    }
+    .collapse.navbar-collapse{
+      margin: 0 0 0 0;
+    }
+    .search{
+      width: auto;
+      height: auto;
+      margin-bottom: 6px;
+    }
+    .signup.btn{
+      display: inline;
+      margin-left: 0px!important;
+    }
+    .login{
+      margin-top: 5px;
+      margin-left: 28px;
+      display: inline-block;
+    }
+    .modal-content{
+      margin-top: 230px;
+    }
+    .signup.modal-content{
+      margin-top: 70px;
+    }
+  }
+  </style>
   {% block css %} {% endblock %}
 
 </head>
@@ -27,7 +79,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="padding-left: 400px;">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/"><i class="fas fa-home"></i></a>
+            <a class="home nav-link active" aria-current="page" href="/"><i class="fas fa-home"></i></a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
@@ -70,22 +122,16 @@
               <li><a class="dropdown-item" href="#">Earings</a></li>
             </ul>
           </li>
-          <!-- <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/ecom/about">About Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/ecom/contact">Contact Us</a>
-                    </li> -->
         </ul>
         <form method="get" action="/ecom/search1/" class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search1" id="search1">
-          <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
+          <input class="form-control me-2 search" type="search" placeholder="Search" aria-label="Search" name="search1" id="search1">
+          <button class="searchbtn btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
         </form>
         <div class="btn-group" role="group" aria-label="Basic outlined example">
-          <button type="button" class="btn btn-outline-primary mx-2" data-bs-toggle="modal"
+          <button type="button" class="signup btn btn-outline-primary mx-2" data-bs-toggle="modal"
             data-bs-target="#exampleModal"><i class="fas fa-user-plus"></i> SignUp</button>
         </div>
-        <div class="dropdown">
+        <div class="login dropdown">
           <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
             data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fas fa-sign-in-alt"></i> Login
@@ -102,7 +148,7 @@
   <!-- Modal SignUp -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="signup modal-content">
         <div class="modal-header d-flex justify-content-center">
           <h5 class="modal-title text-center" id="exampleModalLabel" style="font-size: 25px;font-weight: bolder;">Sign Up
           </h5>

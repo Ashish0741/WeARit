@@ -1,5 +1,20 @@
 {% extends 'basic.html' %}
 {% block title %}WeARit | About Us {% endblock %}
+{% block css %}
+<style>
+  @media only screen and (max-width: 600px) {
+    .card{
+      margin: auto; 
+    }
+    .row{
+      margin-left: 0px!important;
+    }
+    .img-fluid{
+      height: 200px!important;
+    }
+  }
+</style>
+{% endblock %}
 {% block body %}
 <img src="/static/about.jpg" class="img-fluid" alt="..." style="height: 350px;width: 1600px;">
 <div class="container">
@@ -34,7 +49,7 @@
     </div>
     <div class="col-xl-4 col-sm-10">
       <div class="card" style="width: 21rem;">
-        <img src="/static/ashish7.jpg" class="card-img-top" alt="...">
+        <img src="/static/moheed.jfif" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title fs-3 text-center" style="margin-left: 10px;">Mohammed Moheed</h5>
           <p class="card-text fs-5 text-center" style="margin-left: 10px;">AR Developer</p>

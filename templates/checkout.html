@@ -1,6 +1,20 @@
 {% extends 'basic.html' %}
 {% block title %}WeARit | Checkout{% endblock %}
 {% load cart %}
+{% block css %}
+<style>
+    @media only screen and (max-width: 600px) {
+    [class*="col-"] {
+    width: 100%;
+    }
+    .plc{
+        padding-left: 124px;
+        padding-right: 140px;
+        font-weight: 500;
+    }
+}
+</style>
+{% endblock %}
 {% block body %}
 <div class="container">
     <div class="col my-4">
@@ -68,7 +82,7 @@
                                     placeholder="Phone Number">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-4">Place Order</button>
+                        <button type="submit" class="plc btn btn-primary mt-4">Place Order</button>
                     </form>
                </div> </div>
         </div>

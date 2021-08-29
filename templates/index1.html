@@ -11,9 +11,58 @@
     width: 310px !important
   }
 
-  @media screen {
-    
+  @media only screen and (max-width: 600px) {
+    .title {
+      margin-left: 10px;
+    }
+    .navbar-brand{
+      font-size: x-large;
+      font-weight: bold;
+    }
+    .navbar-nav{
+      margin: 0px;
+      padding-left: 0px!important;
+    }
+    .home{
+      display: none;
+    }
+    .nav-link{
+      font-size: large;
+      font-weight: 500;
+    }
+    .card{
+      margin: auto;
+      margin-bottom: 10px;
+    }
+    .navbar-toggler{
+      margin-right: 5px;
+      padding: 8px;
+    }
+    .collapse.navbar-collapse{
+      margin: 0 0 0 0;
+    }
+    .search{
+      width: auto;
+      height: auto;
+      margin-bottom: 6px;
+    }
+    .signup.btn{
+      display: inline;
+      margin-left: 0px!important;
+    }
+    .login{
+      margin-top: 5px;
+      margin-left: 28px;
+      display: inline-block;
+    }
+    .modal-content{
+      margin-top: 230px;
+    }
+    .signup.modal-content{
+      margin-top: 70px;
+    }
   }
+
 </style>
 {% endblock %}
 
@@ -27,13 +76,13 @@
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="https://source.unsplash.com/1600x600/?tshirt,tshirt" class="d-block w-100" alt="...">
+      <img src="https://source.unsplash.com/1600x600/?tshirt,tshirt" class="img d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="https://source.unsplash.com/1600x600/?tshirt,tshirt" class="d-block w-100" alt="...">
+      <img src="https://source.unsplash.com/1600x600/?tshirt,tshirt" class="img d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="https://source.unsplash.com/1600x600/?pant,design" class="d-block w-100" alt="...">
+      <img src="https://source.unsplash.com/1600x600/?pant,design" class="img d-block w-100" alt="...">
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -50,7 +99,7 @@
 
 <div class="container-fluid mr-1 me-1 my-3">
   {% for product, cats in allProds %}
-  <h5 class="my-4">Flash Sale On {{product.0.category}} - Recommended Items</h5>
+  <h5 class="title my-4">Flash Sale On {{product.0.category}} - Recommended Items</h5>
   <div class="row">
     {% for i in product %}
     <div class="col-xs-3 col-sm-1 col-md-3">

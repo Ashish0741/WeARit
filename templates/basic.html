@@ -11,7 +11,62 @@
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/051cf0ddf5.js" crossorigin="anonymous"></script>
     <title>{% block title %} {% endblock %}</title>
-
+<style>
+    @media only screen and (max-width: 600px) {
+    .title {
+      margin-left: 10px;
+    }
+    .navbar-brand{
+      font-size: x-large;
+      font-weight: bold;
+    }
+    .navbar-nav{
+      margin: 0px;
+      padding-left: 0px!important;
+    }
+    .home{
+      display: none;
+    }
+    .nav-link{
+      font-size: large;
+      font-weight: 500;
+    }
+    .card{
+      margin: auto;
+      margin-bottom: 10px;
+    }
+    .navbar-toggler{
+      margin-right: 5px;
+      padding: 8px;
+    }
+    .collapse.navbar-collapse{
+      margin: 0 0 0 0;
+    }
+    .search{
+      width: auto;
+      height: auto;
+      margin-bottom: 6px;
+    }
+    .signup.btn{
+      display: inline;
+      margin-left: 0px!important;
+    }
+    .login{
+      margin-top: 5px;
+      margin-left: 28px;
+      display: inline-block;
+    }
+    .modal-content{
+      margin-top: 230px;
+    }
+    .signup.modal-content{
+      margin-top: 70px;
+    }
+    .userdd{
+        margin-left: 0px!important;
+    }
+  }
+</style>
     {% block css %} {% endblock %}
 
 </head>
@@ -28,7 +83,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="padding-left: 400px;">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/ecom/index2"><i class="fas fa-home"></i></a>
+                        <a class="home nav-link active" aria-current="page" href="/ecom/index2"><i class="fas fa-home"></i></a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -87,7 +142,7 @@
                         data-bs-toggle="dropdown" aria-expanded="false" style="margin-top: -22px;">
                         <i class="fas fa-user"></i> {{request.user}}
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="margin-left: -34px;">
+                    <ul class="userdd dropdown-menu" aria-labelledby="navbarDropdown" style="margin-left: -34px;">
                         <li><a class="dropdown-item" href="/ecom/cart/"> <i class="fas fa-shopping-cart"></i> Cart ({{request.session.cart.keys|length}})</a></li>
                         <li><a class="dropdown-item" href="/ecom/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                     </ul>

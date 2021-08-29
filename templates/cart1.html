@@ -1,0 +1,130 @@
+{% extends 'basic.html' %}
+{% block title %}WeARit | Cart{% endblock %}
+{% load cart %}
+{% block css %}
+<style>
+@media only screen and (max-width: 600px) {
+    .cart{
+        width: 350px;
+        padding: 0 0 0 0!important;
+        margin: 0 0 0 0!important;
+    }
+    .row{
+        padding: 0px!important;
+        margin: 0px!important;
+    }
+    .col-6{
+        width: 0px;
+    }
+    .col-5{
+        width: 120px;
+    }
+    .emp{
+        margin-left: 0px!important;
+        margin-top: 10px!important;
+    }
+    .img{
+        margin: 0px!important;
+        padding: 0px!important;
+        height: 160px!important;
+        width: 140px!important;
+    }
+    .p{
+        font-size: 10px;
+    }
+    .b.col-5{
+        margin-left: 50px!important;
+        padding: 0px!important;
+    }
+    .col-1{
+        margin-left: 13px!important;
+        padding: 0px!important;
+    }
+    .qty{
+        margin: 0px!important;
+        padding: 0px!important;
+    }
+    .chk{
+        margin-right: 100px!important;
+    }
+    .col-4{
+        width: 100%!important;
+    }
+    .col-8{
+        width: 100%!important;
+    }
+    .c{
+        margin-right: 0px!important;
+    }
+    .cs{
+        margin-left: 0px!important;
+        margin-bottom: 10px;
+    }
+    .head{
+        margin-right: 100px!important;
+        display: inline-block;
+        margin-left: 10px!important;
+        margin-top: 0px!important;
+    }
+    .q{
+        margin-left: 30px!important;
+    }
+    .t{
+        margin-left: 0px!important;
+    }
+}
+</style>
+{% endblock %}
+{% block body %}
+{% if l %}
+<div class="container" style="margin-bottom: 230px; width:max-content;">
+    <div class="cart border rounded p-4 m-4">
+            <h1 class="head" style="display: inline-block;margin-right: 730px;">Your Cart</h1>
+            <a href="/ecom/emptycart/" class="emp mt-1 d-inline-block"><button style="display: inline-block;" class="emp btn btn-danger mt-1 d-inline-block float-end">Empty Cart</button></a>
+        <hr>
+        <div class="row mx-5">
+            {% for i in l %}
+            <div class="col-5">
+                <img src="/media/{{i.image}}" class="img border rounded" style="height: 160px;width: 160px;margin-left: 100px;" alt="">
+            </div>
+            <div class="b col-5">
+                <h4>{{i.product_name}}</h4>
+                <p>Price: <i class="fas fa-rupee-sign"></i> {{i.price}}</p>
+                <p class="m-0">
+                    {% if i|is_in_cart:request.session.cart %}
+                        <div class="qty row g-2">
+                            <p class="t col-1 me-1">Qty: </p>
+                            <form action="/ecom/addtocart/#{{i.id}}" method="post" class="col-1 d-inline-block">
+                            {% csrf_token%}
+                            <input hidden type="text" id="product" name="product" value="{{i.id}}">
+                            <input hidden type="text" id="remove" name="remove" value="True">
+                            <input type="submit" value=" - " class="btn btn-block btn-primary d-inline-block p-1 mx-1">
+                            </form>
+                            <div class="q text-center col-1 d-inline-block mx-0 p-1">{{i|quantity:request.session.cart}}</div>
+                            <form action="/ecom/addtocart/#{{i.id}}" method="post" class="col-1 d-inline">
+                            {% csrf_token%}
+                            <input hidden type="text" id="product" name="product" value="{{i.id}}">
+                            <input type="submit" value=" + " class="btn btn-block btn-primary d-inline-block p-1 mx-1">
+                            </form>
+                        </div>
+                    {% endif %}
+                </p>
+                <p>Totat Price: <i class="fas fa-rupee-sign"></i> {{i|total_price:request.session.cart}}</p>
+            </div>
+            <hr>
+            {% endfor %}
+            <div class="chk row">
+            <h4 class="ck col-4">Totat Payment: <i class="fas fa-rupee-sign"></i> {{l|total_cart_price:request.session.cart}}</h4>
+            <div class="col-8">
+                <a href="/ecom/checkout/" class="float-end d-inline"><button class="c btn btn-primary d-inline-block float-end px-4 me-0">Checkout</button></a>
+                <a href="/ecom/index2/" class="cs float-end d-inline"><button class="cs btn btn-primary d-inline-block float-end px-4 me-3">Continue Shopping</button></a>
+            </div>
+            </div>
+        </div>
+    </div>  
+</div>
+{% else %}
+    <h3 class="msg display-6 text-center" style="margin-top: 282px;margin-bottom: 282px;">Your cart is empty.<br>Please add
+        items to cart<br><a href="/ecom/index2" class="btn btn-primary mt-2">Continue Shopping</a></h3>
+{% endif %}
+{% endblock %}

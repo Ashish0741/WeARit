@@ -1,5 +1,18 @@
 {% extends 'basic.html' %}
 {% block title %} WeARit | Contact Us {% endblock %}
+{% block css %}
+<style>
+  @media only screen and (max-width: 600px) {
+    .img-fluid{
+      height: 200px!important;
+    }
+    .sub{
+        padding-left: 145px;
+        padding-right: 148px;
+    }
+  }
+</style>
+{% endblock %}
 {% block body %}
 <img src="/static/contact.png" class="img-fluid" alt="..." style="height: 350px;width: 1600px;">
 {% for message in messages %}
@@ -33,7 +46,7 @@
                     <label for="description">Describe what you want to contact me for here</label>
                     <textarea type="text" class="form-control" id="message" placeholder="Your message" name="message"></textarea>
                 </div> 
-                <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                <button type="submit" class="sub btn btn-primary mt-2">Submit</button>
             </form>
     </div>
     {% endblock %}

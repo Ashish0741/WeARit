@@ -140,7 +140,7 @@ def checkout(request):
 def cart(request):
     ids=request.session.get('cart').keys()
     products=Product.getproductsbyid(ids)
-    return render(request, 'cart.html', {'l': products})
+    return render(request, 'cart1.html', {'l': products})
 
 def emptycart(request):
     request.session['cart'] = {}
