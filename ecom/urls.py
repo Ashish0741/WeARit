@@ -20,4 +20,5 @@ urlpatterns = [
     path('ecom/signup/', views.signup, name='signup'),
     path('ecom/login/', views.login, name='login'),
     path('ecom/logout/', views.logout, name='logout'),
+    path('ecom/holistic/',views.holistic,name='Holistic'),
 ]
