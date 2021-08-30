@@ -39,6 +39,9 @@ def index1(request):
 def about(request):
     return render(request, 'about.html')
 
+def about1(request):
+    return render(request, 'about1.html')
+
 
 def contact(request):
     if request.method == 'POST':
@@ -51,6 +54,18 @@ def contact(request):
         contact.save()
         messages.success(request, "Your message has been sent successfully!!!")
     return render(request, 'contact.html')
+
+def contact1(request):
+    if request.method == 'POST':
+        username = request.user
+        name = request.POST['name']
+        email = request.POST['email']
+        phone = request.POST['phone']
+        message = request.POST['message']
+        contact = Contact(user = username,name=name,email=email,phone=phone,message=message)
+        contact.save()
+        messages.success(request, "Your message has been sent successfully!!!")
+    return render(request, 'contact1.html')
 
 
 def searchMatch(query, item):

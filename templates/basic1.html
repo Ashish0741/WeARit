@@ -71,7 +71,7 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">WeARit</a>
+      <a class="navbar-brand" href="/">WeARit</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -148,11 +148,10 @@
   <!-- Modal SignUp -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="signup modal-content">
-        <div class="modal-header d-flex justify-content-center">
-          <h5 class="modal-title text-center" id="exampleModalLabel" style="font-size: 25px;font-weight: bolder;">Sign Up
+      <div class="signup modal-content" style="margin-top: 75px;">
+        <div class="modal-header d-flex justify-content-center bg-dark">
+          <h5 class="modal-title text-center text-light" id="exampleModalLabel" style="font-size: 25px;font-weight: bolder;">Sign Up
           </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form action="/ecom/signup/" method="post">
@@ -160,16 +159,6 @@
               <label for="username" class="form-label">Username</label>
               <input type="text" class="form-control" name="username" id="username"
                 placeholder="Choose a unique username(lowercase and alphanumeric)" required>
-            </div>
-            <div class="mb-3">
-              <label for="fname" class="form-label">Firstname</label>
-              <input type="text" class="form-control" name="fname" id="fname" placeholder="Enter your firstname"
-                required>
-            </div>
-            <div class="mb-3">
-              <label for="lname" class="form-label">Lastname</label>
-              <input type="text" class="form-control" name="lname" id="lname" placeholder="Enter your lastname"
-                required>
             </div>
             <div class="mb-3">
               <label for="email" class="form-label">Email Id</label>
@@ -186,7 +175,7 @@
                 required>
             </div>
         </div>
-        <div class="modal-footer d-flex justify-content-center">
+        <div class="modal-footer d-flex justify-content-center bg-dark">
           <button type="submit" class="btn btn-outline-primary">Submit</button>
         </div>
       </form>
@@ -197,11 +186,10 @@
   <!-- Modal Login -->
   <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header d-flex justify-content-center">
-          <h5 class="modal-title text-center" id="exampleModalLabel" style="font-size: 25px;font-weight: bolder;">Login
+      <div class="modal-content" style="margin-top: 150px;">
+        <div class="modal-header d-flex justify-content-center bg-dark">
+          <h5 class="modal-title text-center text-light" id="exampleModalLabel" style="font-size: 25px;font-weight: bolder;">Login
           </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form action="/ecom/login/" method="post">
@@ -216,7 +204,7 @@
                 required>
             </div>
         </div>
-        <div class="modal-footer d-flex justify-content-center">
+        <div class="modal-footer d-flex bg-dark justify-content-center">
           <button type="submit" class="btn btn-outline-primary">Submit</button>
         </div>
       </form>
