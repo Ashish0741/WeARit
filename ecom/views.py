@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, logout as auth_logout
 from django.contrib.auth import login as auth_login
 from .models import Order
 from .models import Contact
-import cv2
+from .cv2 import *
 import mediapipe as mp
 
 
