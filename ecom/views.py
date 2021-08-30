@@ -298,5 +298,4 @@ def holistic(request):
 
 
     cap.release()
-    cv2.destroyAllWindows()
     return redirect('Home2')
