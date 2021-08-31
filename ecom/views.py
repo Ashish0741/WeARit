@@ -303,8 +303,6 @@ def gen():
                     ret, buffer = cv2.imencode('.jpg', image)
                     frame = buffer.tobytes()
                     yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-            if cv2.waitKey(10) & 0xFF == ord('q'):
-                break
 
 def video_feed(request):
     return StreamingHttpResponse(gen(),content_type= 'multipart/x-mixed-replace; boundary=frame')
