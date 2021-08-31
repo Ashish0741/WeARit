@@ -20,5 +20,7 @@ urlpatterns = [
     path('ecom/signup/', views.signup, name='signup'),
     path('ecom/login/', views.login, name='login'),
     path('ecom/logout/', views.logout, name='logout'),
-    path('ecom/holistic/',views.holistic,name='Holistic'),
+    path('ecom/prodar/<int:myid>/<slug:mycategory>',views.prodar,name='ProdAr'),
+    path('ecom/prodar1/<int:myid>/<slug:mycategory>',views.prodar1,name='ProdAr1'),
+    path('video_feed',views.video_feed,name='video_feed'),
 ]

@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, StreamingHttpResponse
 from django.shortcuts import render, redirect
 from .models import Product
 from math import ceil
@@ -244,59 +244,67 @@ def logout(request):
     messages.success(request, "Successfully Logged Out!!!")
     return redirect('Home1')
 
-def holistic(request):
+def prodar(request,myid,mycategory):
+    products = Product.objects.filter(id=myid)
+    similar_products = Product.objects.filter(
+        category=mycategory).exclude(id=myid)
+    return render(request, 'productviewar.html', {'product': products[0], 'related': similar_products})
+
+def prodar1(request,myid,mycategory):
+    products = Product.objects.filter(id=myid)
+    similar_products = Product.objects.filter(
+        category=mycategory).exclude(id=myid)
+    return render(request, 'productviewar1.html', {'product': products[0], 'related': similar_products})
+
+def gen():
     mp_drawing = mp.solutions.drawing_utils
-    mp_holistic = mp.solutions.holistic
+    mp_holistic = mp.solutions.holistic  
+    camera = cv2.VideoCapture(0)
+    while True:
+        with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
+            while camera.isOpened():
+                success, frame = camera.read()  # read the camera frame
+                if not success:
+                    break
+                else:
+                    image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                    # Make Detections
+                    results = holistic.process(image)
+                    # print(results.face_landmarks)
 
-    # For webcam input:
-    cap = cv2.VideoCapture(0)
-    # Initiate holistic model
-    with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
-        while cap.isOpened():
-            ret, frame = cap.read()
+                    # face_landmarks, pose_landmarks, left_hand_landmarks, right_hand_landmarks
 
-            # Recolor Feed
-            image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            # Make Detections
-            results = holistic.process(image)
-            # print(results.face_landmarks)
+                    # Recolor image back to BGR for rendering
+                    image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
-            # face_landmarks, pose_landmarks, left_hand_landmarks, right_hand_landmarks
+                    # 1. Draw face landmarks
+                    mp_drawing.draw_landmarks(image, results.face_landmarks, mp_holistic.FACEMESH_CONTOURS,
+                                            mp_drawing.DrawingSpec(color=(80, 110, 10), thickness=1, circle_radius=1),
+                                            mp_drawing.DrawingSpec(color=(80, 256, 121), thickness=1, circle_radius=1)
+                                            )
 
-            # Recolor image back to BGR for rendering
-            image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+                    # 2. Right hand
+                    mp_drawing.draw_landmarks(image, results.right_hand_landmarks, mp_holistic.HAND_CONNECTIONS,
+                                            mp_drawing.DrawingSpec(color=(80, 22, 10), thickness=2, circle_radius=4),
+                                            mp_drawing.DrawingSpec(color=(80, 44, 121), thickness=2, circle_radius=2)
+                                            )
 
-            # 1. Draw face landmarks
-            mp_drawing.draw_landmarks(image, results.face_landmarks, mp_holistic.FACEMESH_CONTOURS,
-                                      mp_drawing.DrawingSpec(color=(80, 110, 10), thickness=1, circle_radius=1),
-                                      mp_drawing.DrawingSpec(color=(80, 256, 121), thickness=1, circle_radius=1)
-                                      )
+                    # 3. Left Hand
+                    mp_drawing.draw_landmarks(image, results.left_hand_landmarks, mp_holistic.HAND_CONNECTIONS,
+                                            mp_drawing.DrawingSpec(color=(121, 22, 76), thickness=2, circle_radius=4),
+                                            mp_drawing.DrawingSpec(color=(121, 44, 250), thickness=2, circle_radius=2)
+                                            )
 
-            # 2. Right hand
-            mp_drawing.draw_landmarks(image, results.right_hand_landmarks, mp_holistic.HAND_CONNECTIONS,
-                                      mp_drawing.DrawingSpec(color=(80, 22, 10), thickness=2, circle_radius=4),
-                                      mp_drawing.DrawingSpec(color=(80, 44, 121), thickness=2, circle_radius=2)
-                                      )
-
-            # 3. Left Hand
-            mp_drawing.draw_landmarks(image, results.left_hand_landmarks, mp_holistic.HAND_CONNECTIONS,
-                                      mp_drawing.DrawingSpec(color=(121, 22, 76), thickness=2, circle_radius=4),
-                                      mp_drawing.DrawingSpec(color=(121, 44, 250), thickness=2, circle_radius=2)
-                                      )
-
-            # 4. Pose Detections
-            mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_holistic.POSE_CONNECTIONS,
-                                      mp_drawing.DrawingSpec(color=(245, 117, 66), thickness=2, circle_radius=4),
-                                      mp_drawing.DrawingSpec(color=(245, 66, 230), thickness=2, circle_radius=2)
-                                      )
-
-            cv2.imshow('Raw Webcam Feed', image)
-
+                    # 4. Pose Detections
+                    mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_holistic.POSE_CONNECTIONS,
+                                            mp_drawing.DrawingSpec(color=(245, 117, 66), thickness=2, circle_radius=4),
+                                            mp_drawing.DrawingSpec(color=(245, 66, 230), thickness=2, circle_radius=2)
+                                            )
+                    ret, buffer = cv2.imencode('.jpg', image)
+                    frame = buffer.tobytes()
+                    yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
             if cv2.waitKey(10) & 0xFF == ord('q'):
                 break
 
-
-
-    cap.release()
-    cv2.destroyAllWindows()
-    return redirect('Home2')
+def video_feed(request):
+    return StreamingHttpResponse(gen(),content_type= 'multipart/x-mixed-replace; boundary=frame')
