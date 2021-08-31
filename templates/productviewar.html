@@ -34,12 +34,12 @@
 <h1 class="head" style="margin-left: 20px;padding-bottom: 20px;padding-top: 10px;">Product Details</h1>
 <div class="container">
   <div class="row">
-    <div class="col-sm-10 col-md-5 col-lg-6 col-xl-6 text-center">
+    <div class="col-sm-10 col-md-5 col-lg-6 col-xl-8 text-center">
       <div class="row">
-        <img src="{% url 'video_feed' %}" class="pimg card-img-top border rounded" width="400px" height="550px" alt="...">
+        <img src="{% url 'video_feed' %}" class="pimg card-img-top border rounded" width="600px" height="550px" alt="...">
       </div>
     </div>
-    <div class="col-sm-12 col-md-6 col-xl-6">
+    <div class="col-sm-12 col-md-6 col-xl-4">
       <h1 class="text-truncate" style="font-size: 40px;">{{product.product_name}}<br>
       </h1>
       <p style="font-size: 26px;">Price: <i class="fa fa-rupee"></i> {{product.price}}&nbsp;</p>
