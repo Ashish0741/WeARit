@@ -51,12 +51,11 @@
     {% for i in product %}
     <div class="col-xs-3 col-sm-1 col-md-3">
       <div class="card" style="width: 18rem;">
-        <img src="/media/{{i.image}}" class="card-img-top" alt="...">
+        <a href="/ecom/productview1/{{i.id}}/{{i.category}}"><img src="/media/{{i.image}}" class="card-img-top" alt="..."></a>
         <div class="card-body">
           <h5 class="card-title" id="namepr{{i.id}}" style="margin-left: 10px;">{{i.product_name}}</h5>
           <p class="card-text" style="margin-left: 10px;">Price: <i class="fas fa-rupee-sign"></i> {{i.price}}</p>
-          <button id="pr{{i.id}}" class="btn btn-primary cart" style="margin-left: 10px;margin-right: 40px;">Add to Cart</button>
-          <a href="/ecom/productview1/{{i.id}}"><button id="qv{{i.id}}" class="btn btn-primary">Quick view</button></a>
+          <a href="#"><button id="pr{{i.id}}" class="btn btn-primary d-inline" data-bs-toggle="modal" data-bs-target="#exampleModal2" style="margin-left: 10px;margin-right: 10px;padding-left: 80px;padding-right:92px;">Add to Cart</button></a>
         </div>
       </div>
     </div>

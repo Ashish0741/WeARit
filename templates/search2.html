@@ -1,5 +1,6 @@
 {% extends 'basic.html' %}
 {% block title %}WeARit{% endblock %}
+{% load cart %}
 {% block css %}
 <style>
   .card img {
@@ -51,12 +52,21 @@
     {% for i in product %}
     <div class="col-xs-3 col-sm-1 col-md-3">
       <div class="card" style="width: 18rem;">
-        <img src="/media/{{i.image}}" class="card-img-top" alt="...">
+        <a href="/ecom/productview/{{i.id}}/{{i.category}}"><img src="/media/{{i.image}}" class="card-img-top" alt="..."></a>
         <div class="card-body">
           <h5 class="card-title" id="namepr{{i.id}}" style="margin-left: 10px;">{{i.product_name}}</h5>
           <p class="card-text" style="margin-left: 10px;">Price: <i class="fas fa-rupee-sign"></i> {{i.price}}</p>
-          <button id="pr{{i.id}}" class="btn btn-primary cart" style="margin-left: 10px;margin-right: 40px;">Add to Cart</button>
-          <a href="/ecom/productview/{{i.id}}"><button id="qv{{i.id}}" class="btn btn-primary">Quick view</button></a>
+          {% if i|is_in_cart:request.session.cart %}
+            <input type="submit" class="btn btn-success btn-block" disabled value="Added to Cart"
+              style="margin-left: 10px;margin-right: 10px;padding-left: 75px;padding-right:83px;">
+          {% else %}
+          <form action="/ecom/addtocart/#{{i.id}}" method="post">
+            {% csrf_token%}
+            <input hidden type="text" id="product" name="product" value="{{i.id}}">
+            <input type="submit" class="btn btn-primary btn-block" value="Add to Cart"
+              style="margin-left: 10px;margin-right: 10px;padding-left: 85px;padding-right:90px;">
+          </form>
+         {% endif %}
         </div>
       </div>
     </div>

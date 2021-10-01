@@ -30,10 +30,13 @@ class Order(models.Model):
     product = models.CharField(max_length=50)
     price = models.IntegerField()
     quantity = models.IntegerField()
+    totalPrice = models.IntegerField(default=0)
+    paid = models.BooleanField(default=False)
     date = models.DateField(default=datetime.datetime.today)
     
     def __str__(self):
         return self.user
+
 
 class Contact(models.Model):
     user = models.CharField(max_length=20)

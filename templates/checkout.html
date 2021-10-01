@@ -42,44 +42,44 @@
             </li>
                 <div class="col my-4">
                     <h1>Step2 - Enter your Address and Other details:</h1>
-                    <form action="" method="post">
+                    <form action="/ecom/order/" method="post">
                         {% csrf_token %}
                         <div class="row g-3">
                             <div class="form-group col-6 mb-2">
                                 <label for="name">Name:</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Name">
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Name" required>
                             </div>
                             <div class="form-group col-6 mb-2">
                                 <label for="inputEmail4">Email:</label>
                                 <input type="email" class="form-control" name="email" id="inputEmail4"
-                                    placeholder="Email">
+                                    placeholder="Email" required>
                             </div>
                         </div>
                         <div class="form-group mt-2">
                             <label for="inputAddress">Address:</label>
                             <input type="text" class="form-control" name="address" id="inputAddress"
-                                placeholder="Address">
+                                placeholder="Address" required>
                         </div>
                         <div class="row g-3 mt-1">
                             <div class="form-group col-3">
                                 <label for="inputCity">City:</label>
-                                <input type="text" class="form-control" name="city" id="inputCity" placeholder="City">
+                                <input type="text" class="form-control" name="city" id="inputCity" placeholder="City" required>
                             </div>
                             <div class="form-group col-3">
                                 <label for="inputState">State:</label>
                                 <input type="text" class="form-control" name="state" id="inputAddress"
-                                    placeholder="State">
+                                    placeholder="State" required>
                                 </select>
                             </div>
                             <div class="form-group col-3">
                                 <label for="inputZip">Pincode:</label>
                                 <input type="text" class="form-control" name="pincode" id="inputZip"
-                                    placeholder="Pincode">
+                                    placeholder="Pincode"required>
                             </div>
                             <div class="form-group col-3">
                                 <label for="inputZip">Phone Number:</label>
                                 <input type="tel" class="form-control" name="phone" id="inputPhone"
-                                    placeholder="Phone Number">
+                                    placeholder="Phone Number" required>
                             </div>
                         </div>
                         <button type="submit" class="plc btn btn-primary mt-4">Place Order</button>

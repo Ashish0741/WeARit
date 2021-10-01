@@ -1,5 +1,6 @@
 from django.http import HttpResponse, StreamingHttpResponse
 from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
 from .models import Product
 from math import ceil
 import itertools
@@ -11,6 +12,9 @@ from .models import Order
 from .models import Contact
 import cv2
 import mediapipe as mp
+import razorpay
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 def index2(request):
@@ -96,6 +100,9 @@ def search1(request):
 
 
 def search2(request):
+    cart = request.session.get('cart')
+    if not cart:
+        request.session['cart'] = {}
     query = request.GET.get('search2')
     allProds = []
     catprods = Product.objects.values('category', 'id')
@@ -132,6 +139,11 @@ def productview1(request, myid, mycategory):
 
 
 def checkout(request):
+    ids=request.session.get('cart').keys()
+    products=Product.getproductsbyid(ids)
+    return render(request, 'checkout.html', {'products': products})
+
+def order(request):
     if request.method == 'POST':
         username = request.user
         name = request.POST['name']
@@ -143,16 +155,25 @@ def checkout(request):
         phone = request.POST['phone']
         cart = request.session.get('cart')
         products = Product.getproductsbyid(list(cart.keys()))
+        pay = []
         for product in products:
-            order = Order(user=username, name=name, email=email, address=address, city=city, state=state, pincode=pincode,phone=phone, product=product, price=product.price, quantity=cart.get(str(product.id)))
+            pay.append(((product.price)*(cart.get(str(product.id)))) * 100)
+            order = Order(user=username, name=name, email=email, address=address, city=city, state=state, pincode=pincode,phone=phone, product=product, price=product.price, quantity=cart.get(str(product.id)),totalPrice =((product.price)*(cart.get(str(product.id)))))
             order.save()
-        request.session['cart'] = {}
-        messages.success(request, "Your order has been placed successfully!!!")
-        return redirect('Home2')
-    ids=request.session.get('cart').keys()
-    products=Product.getproductsbyid(ids)
-    return render(request, 'checkout.html', {'products': products})
+        client = razorpay.Client(auth=("rzp_test_JaZ7Hbjm5CP78f", "m3hI5KDOJIdiaJYOluqpGQZe"))
+        payment = client.order.create({'amount':int(sum(pay)),'currency':'INR','payment_capture':'1'})
+        return render(request, 'payment.html',{'payment':payment,'email':email,'phone':phone})
 
+@csrf_exempt
+def success(request):
+    user = request.user
+    sub = 'Your Payment has been Received'
+    message = 'Thank You For Ordering!!!'
+    email = 'wearit482@gmail.com'
+    send_mail(sub, message,email,[user.email])
+    request.session['cart'] = {}
+    messages.success(request, "Your order has been placed successfully!!!")
+    return redirect('Home2')
 
 def cart(request):
     ids=request.session.get('cart').keys()

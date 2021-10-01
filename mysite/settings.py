@@ -128,3 +128,9 @@ MEDIA_URL = '/media/'
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'wearit482@gmail.com'
+EMAIL_HOST_PASSWORD = 'wearit123456'
+EMAIL_PORT = 587
