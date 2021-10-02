@@ -156,19 +156,30 @@ def order(request):
         cart = request.session.get('cart')
         products = Product.getproductsbyid(list(cart.keys()))
         pay = []
+        total = []
         for product in products:
             pay.append(((product.price)*(cart.get(str(product.id)))) * 100)
+            total.append(((product.price)*(cart.get(str(product.id)))))
             order = Order(user=username, name=name, email=email, address=address, city=city, state=state, pincode=pincode,phone=phone, product=product, price=product.price, quantity=cart.get(str(product.id)),totalPrice =((product.price)*(cart.get(str(product.id)))))
             order.save()
         client = razorpay.Client(auth=("rzp_test_JaZ7Hbjm5CP78f", "m3hI5KDOJIdiaJYOluqpGQZe"))
-        payment = client.order.create({'amount':int(sum(pay)),'currency':'INR','payment_capture':'1'})
-        return render(request, 'payment.html',{'payment':payment,'email':email,'phone':phone})
+        payment = client.order.create({'amount':int(sum(pay)+8000),'currency':'INR','payment_capture':'1'})
+        return render(request, 'payment.html',{'payment':payment,'name':name,'email':email,'phone':phone,'address':address,'city':city,'state':state,'pincode':pincode,'total':(sum(total))})
 
 @csrf_exempt
 def success(request):
+    a = request.POST
+    # print(a)
+    order_id = ''
+    payment_id = ''
+    for key , val in a.items():
+        if key == 'razorpay_order_id':
+            order_id = val
+        if key == 'razorpay_payment_id':
+            payment_id = val
     user = request.user
     sub = 'Your Payment has been Received'
-    message = 'Thank You For Ordering!!!'
+    message = 'Hi '+(str(user))+',\n\nYour Order '' has been Received.\nOrder id : '+(str(order_id))+'\nPayemnt id : '+(str(payment_id))+'\n\nThank You For Ordering!!!'
     email = 'wearit482@gmail.com'
     send_mail(sub, message,email,[user.email])
     request.session['cart'] = {}
