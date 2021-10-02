@@ -1,5 +1,6 @@
 {% extends 'basic.html' %}
 {% load cart %}
+{% load static %}
 {% block title %}WeARit | Payment{% endblock %}
 {% block body %}
 
@@ -29,7 +30,7 @@ var options = {
     "currency": "INR",
     "name": "WEARIT",
     "description": "Test Transaction",
-    "image": "https://example.com/your_logo",
+    "image": "{% static 'favicon.ico' %}",
     "order_id": "{{payment.id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
     "callback_url": "http://127.0.0.1:8000/ecom/success/",
     "prefill": {
